@@ -1,6 +1,6 @@
 FROM openjdk:8-jdk
 
-MAINTAINER Seanghay
+LABEL maintainer="seanghay.dev@gmail.com"
 
 ENV ANDROID_COMPILE_SDK=29
 ENV ANDROID_BUILD_TOOLS=29.0.2
@@ -9,6 +9,9 @@ ENV ANDROID_SDK_TOOLS=4333796
 RUN apt-get --quiet update --yes
 RUN apt-get --quiet install --yes wget tar unzip lib32stdc++6 
 RUN apt-get -qq install curl
+RUN curl -sL https://deb.nodesource.com/setup_14.x | bash -
+RUN apt-get --quiet install nodejs --yes
+RUN apt-get --quiet install gcc g++ make --yes
 RUN wget --quiet --output-document=android-sdk.zip https://dl.google.com/android/repository/sdk-tools-linux-${ANDROID_SDK_TOOLS}.zip
 RUN unzip -d android-sdk-linux android-sdk.zip
 RUN echo y | android-sdk-linux/tools/bin/sdkmanager "platforms;android-${ANDROID_COMPILE_SDK}" >/dev/null
